@@ -19,7 +19,7 @@ pipeline {
         stage('build && SonarQube analysis') {
             steps {
                 withSonarQubeEnv('sonarserver') {
-                    sh 'sonar-scanner -Dsonar.projectKey=HelloWorldMaven -Dsonar.sources=./src'
+                    sh '/usr/bin/mvn sonar:sonar -Dsonar.projectKey=HelloWorldMaven -Dsonar.sources=./src'
                 }
             }
         }
