@@ -3,14 +3,14 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                withMaven(maven : 'apache-maven-3.6.0'){
+                withMaven(maven : 'apache-maven-3.9.6'){
                         sh "mvn clean compile"
                 }
             }
         }
         stage('Test'){
             steps {
-                withMaven(maven : 'apache-maven-3.6.0'){
+                withMaven(maven : 'apache-maven-3.9.6'){
                         sh "mvn test"
                 }
 
@@ -18,8 +18,8 @@ pipeline {
         }
         stage('build && SonarQube analysis') {
             steps {
-                withSonarQubeEnv('sonar.tools.devops.****') {
-                    sh 'sonar-scanner -Dsonar.projectKey=myProject -Dsonar.sources=./src'
+                withSonarQubeEnv('sonarserver') {
+                    sh 'sonar-scanner -Dsonar.projectKey=HelloWorldMaven -Dsonar.sources=./src'
                 }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
 			}
         stage('Deploy') {
             steps {
-               withMaven(maven : 'apache-maven-3.6.0'){
+               withMaven(maven : 'apache-maven-3.9.6'){
                         sh "mvn deploy"
                 }
 
